@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import ListList from './ListList';
 import Home from './Home';
-import ListCreator from './ListCreator'
+import ListCreator from './ListCreator';
+import List from './List';
 
 function App() {
 
@@ -24,6 +25,8 @@ function App() {
         <Route path="/lists" element={<ListList lists={lists} />}>
         </Route>
         <Route path='/createlist' element={<ListCreator/>}>
+        </Route>
+        <Route path='/lists/:id' element={<List/>}>
         </Route>
         </Routes>
     </div>
