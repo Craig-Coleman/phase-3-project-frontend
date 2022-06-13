@@ -1,8 +1,17 @@
 import React from 'react';
 
-function ListList() {
+function ListList({ lists }) {
+
+   const listOfLists = lists.map(list => {
+    return(
+        <li key={list.id}>{list.name}</li>
+        )
+    }) 
+ 
     return (
-        <h3>List of Lists</h3>
+        <ul>
+            {listOfLists}
+        </ul>
     );
 };
 
