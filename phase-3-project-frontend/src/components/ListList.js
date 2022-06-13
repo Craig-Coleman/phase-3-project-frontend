@@ -13,7 +13,6 @@ function ListList({ lists }) {
         </li>
         )
     })
-     
  
     return (
         <ul>
