@@ -30,7 +30,7 @@ function List() {
 
     return (
         <div>
-            <h3>{list.name}</h3>
+            <h1>{list.name}</h1>
             <ul>
                 {itemsList}
             </ul>
