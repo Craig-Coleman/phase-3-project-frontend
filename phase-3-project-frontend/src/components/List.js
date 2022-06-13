@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Item from './Item';
 
 
 function List() {
@@ -23,7 +24,7 @@ function List() {
 
     const itemsList = items.map((item) => {
         return (
-            <li key={item.id}>{item.name}</li>
+            <Item key={item.id} item={item} />
         )
     })
 
