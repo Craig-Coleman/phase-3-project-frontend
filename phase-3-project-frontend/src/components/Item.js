@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Item ({ item }) {
+function Item ({ item, deleteItem }) {
 
     const { id, name, category, price } = item;
 
@@ -38,10 +38,7 @@ function Item ({ item }) {
     }
 
     function handleDeleteClick() {
-        fetch(`http://localhost:9292/items/${id}`, {
-            method: 'DELETE'
-        })
-        .then((res) => res.json())
+        deleteItem(id)
     }
 
     function handleEditCategory(e) {

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Item from './Item';
 
 
-function List({ addItem }) {
+function List() {
 
     const [list, setList] = useState([]);
     const [items, setItems] = useState([]);
@@ -34,14 +34,32 @@ function List({ addItem }) {
 
     const itemsList = items.map((item) => {
         return (
-            <Item key={item.id} item={item} />
+            <Item key={item.id} item={item} deleteItem={deleteItem} />
         )
-    })
+    });
 
-    function handleSubmit(e) {
+    function deleteItem(itemId) {
+        fetch(`http://localhost:9292/items/${itemId}`, {
+            method: 'DELETE'
+        })
+        .then((res) => res.json())
+        .then(setItems(items.filter(item => item.id !== itemId)));
+    };
+
+    function addItem(e) {
         e.preventDefault();
-        addItem(newItemObj);
-    }
+        fetch('http://localhost:9292/items', {
+            method: 'POST',
+            body: JSON.stringify(newItemObj),
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            }
+          });
+          fetch('http://localhost:9292/items')
+          .then((res) => res.json())
+          .then((data) => setItems(data));
+    };
 
     return (
         <div>
@@ -51,7 +69,7 @@ function List({ addItem }) {
             </ul>
             <h2>Add New Item</h2>
             <div>
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <form onSubmit={(e) => addItem(e)}>
                 <input type="text" placeholder="New Item Name" onChange={(e) => setItemName(e.target.value)}></input>
                 <input type="text" placeholder="New Item Price" onChange={(e) => setItemPrice(e.target.value)}></input>
                 <select onChange={(e) => setItemCategory(e.target.value)}>

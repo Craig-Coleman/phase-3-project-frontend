@@ -16,13 +16,6 @@ function App() {
       .then((res) => setLists(res))
   }, []);
 
-  function addItem(newItem) {
-    fetch('http://localhost:9292/items', {
-      method: 'POST',
-      body: JSON.stringify(newItem),
-      headers: { 'Content-Type': 'application/json' }
-    });
-  };
 
   return (
     <div className="page">
@@ -34,7 +27,7 @@ function App() {
         </Route>
         <Route path='/createlist' element={<ListCreator/>}>
         </Route>
-        <Route path='/lists/:id' element={<List addItem={addItem} />}>
+        <Route path='/lists/:id' element={<List/>}>
         </Route>
         </Routes>
     </div>
