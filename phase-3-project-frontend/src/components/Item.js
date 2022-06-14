@@ -38,7 +38,10 @@ function Item ({ item }) {
     }
 
     function handleDeleteClick() {
-        console.log("delete")
+        fetch(`http://localhost:9292/items/${id}`, {
+            method: 'DELETE'
+        })
+        .then((res) => res.json())
     }
 
     function handleEditCategory(e) {
