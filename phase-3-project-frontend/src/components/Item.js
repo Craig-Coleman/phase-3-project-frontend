@@ -8,19 +8,9 @@ function Item ({ item }) {
     const [itemCategory, setItemCategory] = useState(category);
     const [itemPrice, setItemPrice] = useState(price);
 
-
-    function handleEditClick() {
-        const editNameForm = document.getElementById(`editNameDiv${id}`);
-        const editPriceForm = document.getElementById(`editPriceDiv${id}`);
-        editNameForm.hidden = false;
-        editPriceForm.hidden = false;
-
-    }
-
     function handleSubmit(e) {
         e.preventDefault()
-        const editNameDiv = document.getElementById("editNameDiv");
-        const editPriceDiv = document.getElementById("editPriceDiv");
+        const editForm = document.getElementById(`editForm${id}`);
         fetch(`http://localhost:9292/items/${id}`, {
             method: 'PATCH',
             body: JSON.stringify({
@@ -31,6 +21,12 @@ function Item ({ item }) {
             headers: { 'Content-type': 'application/json' },
         })
         .then((res) => res.json());
+        editForm.hidden = true
+    }
+
+    function handleEditClick() {
+        const editForm = document.getElementById(`editForm${id}`);
+        editForm.hidden = false;
     }
 
     function handleEditName(e) {
@@ -45,27 +41,28 @@ function Item ({ item }) {
         console.log("delete")
     }
 
+    function handleEditCategory(e) {
+        setItemCategory(e.target.value)
+    }
+
     return (
-        <div id="item">
-            <h3>{itemName} / {itemCategory} / ${itemPrice}</h3>
-            <button onClick={handleEditClick}>Edit Item</button>
-            <select selected={itemCategory}>
-                <option value="produce">Produce</option>
-                <option value="condiment">Condiment</option>
-                <option value="frozen">Frozen</option>
-                <option value="deli">Deli</option>
-            </select>
-            <button onClick={handleDeleteClick}>delete item</button>
-            <div id={`editNameDiv${id}`} hidden>
+        <div>
+            <div id="item">
+                <h3>{itemName} / {itemCategory} / ${itemPrice}</h3>
+                <button onClick={handleEditClick}>Edit Item</button>
+                <button onClick={handleDeleteClick}>delete item</button>
+            </div>
+            <div id={`editForm${id}`} hidden>
                 <form onSubmit={(e) => handleSubmit(e)}>
                 <input type="text" placeholder="Enter New Name" onChange={(e) => handleEditName(e)}></input>
-                <input type="submit" value="save name"></input>
-                </form>
-            </div>
-            <div id={`editPriceDiv${id}`} hidden>
-                <form onSubmit={(e) => handleSubmit(e)}>
                 <input type="text" placeholder="Enter New Price" onChange={(e) => handleEditPrice(e)}></input>
-                <input type="submit" value="save price"></input>
+                <select defaultValue={itemCategory} onChange={(e) => handleEditCategory(e)}>
+                    <option value="produce" id="produce">Produce</option>
+                    <option value="condiment" id="condiment">Condiment</option>
+                    <option value="frozen" id="frozen">Frozen</option>
+                    <option value="deli" id="deli">Deli</option>
+                </select>
+                <input type="submit" value="save changes"></input>
                 </form>
             </div>
         </div>
