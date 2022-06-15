@@ -6,10 +6,11 @@ import Item from './Item';
 function List() {
 
     const [list, setList] = useState([]);
+    const [newListName, setNewListName] = useState("");
     const [items, setItems] = useState([]);
     const [itemName, setItemName] = useState("");
     const [itemPrice, setItemPrice] = useState("");
-    const [itemCategory, setItemCategory] = useState("");
+    const [itemCategory, setItemCategory] = useState("Produce");
 
     let { id } = useParams();
 
@@ -23,14 +24,29 @@ function List() {
     useEffect(() => {
         fetch(`http://localhost:9292/lists/${id}`)
         .then((r) => r.json())
-        .then((data) => setList(data))
-    }, [])
+        .then((data) => handleData(data))
+    }, []);
 
-    useEffect(() => {
-        fetch(`http://localhost:9292/lists/${id}`)
-        .then((r) => r.json())
-        .then(data => setItems(data.items))
-    }, [])
+    function handleData(data) {
+        setList(data);
+        setItems(data.items);
+    };
+
+    function handleClick() {
+        const form = document.getElementById("form");
+        form.hidden = !form.hidden;
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        fetch(`http://localhost:9292/lists/${id}`, {
+            method: "PATCH",
+            body: JSON.stringify({name:  newListName}),
+            headers: { "Content-Type": "application/json" },
+        })
+        .then((res) => res.json())
+        .then((data) => setList(data));
+    }
 
     const itemsList = items.map((item) => {
         return (
@@ -48,22 +64,28 @@ function List() {
 
     function addItem(e) {
         e.preventDefault();
-        fetch('http://localhost:9292/items', {
+        fetch(`http://localhost:9292/lists/${id}/items`, {
             method: 'POST',
             body: JSON.stringify(newItemObj),
             headers: { 
                 'Accept': 'application/json',
                 'Content-Type': 'application/json' 
             }
-          });
-          fetch('http://localhost:9292/items')
+          })
           .then((res) => res.json())
-          .then((data) => setItems(data));
+          .then((data) => setItems([...items, data]));
     };
 
     return (
         <div>
+            <div>
             <h1>{list.name}</h1>
+            <button onClick={handleClick}>Edit Name</button>
+            <form id="form" onSubmit={(e) => handleSubmit(e)} hidden>
+                <input type="text" placeholder="New Name" onChange={(e) => setNewListName(e.target.value)}></input>
+                <input type="submit" value="save"></input>
+            </form>
+            </div>
             <ul>
                 {itemsList}
             </ul>

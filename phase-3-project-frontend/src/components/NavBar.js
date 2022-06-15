@@ -10,12 +10,6 @@ function NavBar() {
             >
                 My Lists
             </NavLink>
-            <NavLink
-                className="navlink"
-                to="/createlist"
-            >
-                Create a New List
-            </NavLink>
         </div>
     )
 }

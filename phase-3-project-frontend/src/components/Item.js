@@ -26,7 +26,7 @@ function Item ({ item, deleteItem }) {
 
     function handleEditClick() {
         const editForm = document.getElementById(`editForm${id}`);
-        editForm.hidden = false;
+        editForm.hidden = !editForm.hidden;
     }
 
     function handleEditName(e) {

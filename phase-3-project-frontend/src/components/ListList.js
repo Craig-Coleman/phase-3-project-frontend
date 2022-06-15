@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom';
 
 function ListList({ lists }) {
 
-
-   const listOfLists = lists.map(list => {
-    return(
+   const listOfLists = lists.map(list => 
         <li key={list.id}>
-            <Link to={`/lists/${list.id}`}>
-                {list.name}
-            </Link>
+                <Link to={`/lists/${list.id}`}>
+                    {list.name}
+                </Link>
         </li>
-        )
-    })
+    )
  
     return (
         <ul>
