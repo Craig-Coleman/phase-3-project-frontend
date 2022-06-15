@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}>
         </Route>
-        <Route path="/lists" element={<ListList lists={lists} />}>
+        <Route path="/lists" element={<ListList lists={lists} setLists={setLists} />}>
         </Route>
         <Route path='/lists/:id' element={<List/>}>
         </Route>
