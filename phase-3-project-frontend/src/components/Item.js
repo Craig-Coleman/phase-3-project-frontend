@@ -11,7 +11,7 @@ function Item ({ item, deleteItem }) {
     function handleSubmit(e) {
         e.preventDefault()
         const editForm = document.getElementById(`editForm${id}`);
-        fetch(`http://localhost:9292/lists/${list_id}/${id}`, {
+        fetch(`http://localhost:9292/lists/${list_id}/items/${id}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 name: itemName,
