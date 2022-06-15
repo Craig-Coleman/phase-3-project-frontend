@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function Item ({ item, deleteItem }) {
 
-    const { id, name, category, price } = item;
+    const { id, name, category, price, list_id } = item;
 
     const [itemName, setItemName] = useState(name);
     const [itemCategory, setItemCategory] = useState(category);
@@ -11,7 +11,7 @@ function Item ({ item, deleteItem }) {
     function handleSubmit(e) {
         e.preventDefault()
         const editForm = document.getElementById(`editForm${id}`);
-        fetch(`http://localhost:9292/items/${id}`, {
+        fetch(`http://localhost:9292/lists/${list_id}/${id}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 name: itemName,

@@ -32,9 +32,16 @@ function List() {
         setItems(data.items);
     };
 
-    function handleClick() {
+    function handleClickEdit() {
         const form = document.getElementById("form");
         form.hidden = !form.hidden;
+    }
+
+    function handleDeleteList() {
+        fetch(`http://localhost:9292/lists/${id}`, {
+            method: "DELETE"
+        })
+        .then((res) => res.json())
     }
 
     function handleSubmit(e) {
@@ -55,7 +62,7 @@ function List() {
     });
 
     function deleteItem(itemId) {
-        fetch(`http://localhost:9292/items/${itemId}`, {
+        fetch(`http://localhost:9292/lists/${id}/items/${itemId}`, {
             method: 'DELETE'
         })
         .then((res) => res.json())
@@ -80,7 +87,8 @@ function List() {
         <div>
             <div>
             <h1>{list.name}</h1>
-            <button onClick={handleClick}>Edit Name</button>
+            <button onClick={handleClickEdit}>Edit Name</button>
+            <button onClick={handleDeleteList} >Delete List</button>
             <form id="form" onSubmit={(e) => handleSubmit(e)} hidden>
                 <input type="text" placeholder="New Name" onChange={(e) => setNewListName(e.target.value)}></input>
                 <input type="submit" value="save"></input>
