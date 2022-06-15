@@ -22,7 +22,9 @@ function ListList({ lists, setLists }) {
             body: JSON.stringify({ name: newListName })
         })
         .then((res) => res.json())
-        .then((data) => setLists([...lists, data]))
+        .then((data) => setLists([...lists, data]));
+        const form = document.getElementById("form");
+        form.reset();
     }
 
    const listOfLists = lists.map(list => 
@@ -42,7 +44,7 @@ function ListList({ lists, setLists }) {
                 {listOfLists}
             </ul>
             <h3>Create New List</h3>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <form id="form" onSubmit={(e) => handleSubmit(e)}>
                 <input type="text" placeholder="New List Name" onChange={(e) => setNewListName(e.target.value)}></input>
                 <input type="submit" value="create"></input>
             </form>
