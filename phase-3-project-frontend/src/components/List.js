@@ -74,6 +74,8 @@ function List() {
           })
           .then((res) => res.json())
           .then((data) => setItems([...items, data]));
+          const addForm = document.getElementById("addForm");
+          addForm.reset()
     };
 
     return (
@@ -91,7 +93,7 @@ function List() {
             </ul>
             <h2>Add New Item</h2>
             <div>
-                <form onSubmit={(e) => addItem(e)}>
+                <form id="addForm" onSubmit={(e) => addItem(e)}>
                 <input type="text" placeholder="New Item Name" onChange={(e) => setItemName(e.target.value)}></input>
                 <input type="text" placeholder="New Item Price" onChange={(e) => setItemPrice(e.target.value)}></input>
                 <select onChange={(e) => setItemCategory(e.target.value)}>
