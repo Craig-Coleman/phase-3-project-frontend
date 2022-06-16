@@ -25,7 +25,7 @@ function List() {
         fetch(`http://localhost:9292/lists/${id}`)
         .then((r) => r.json())
         .then((data) => handleData(data))
-    }, []);
+    },[]);
 
     function handleData(data) {
         setList(data);
